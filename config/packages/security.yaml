@@ -1,0 +1,32 @@
+security:
+    encoders:
+        App\UserBundle\Entity\User:
+            algorithm: bcrypt
+    providers:
+        app_user_provider:
+            entity:
+                class: App\UserBundle\Entity\User
+                property: email
+
+    role_hierarchy:
+        ROLE_ADMIN:       ROLE_USER
+        ROLE_SUPER_ADMIN: ROLE_ADMIN
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            pattern: ^/
+            logout:
+                path: app_user.logout
+            anonymous: true
+            guard:
+                authenticators:
+                    - App\UserBundle\Security\LoginFormAuthenticator
+
+    access_control:
+        - { path: ^/user/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/user/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/user/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/user/admin/, role: ROLE_ADMIN }

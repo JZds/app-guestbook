@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+{% trans_default_domain 'UserBundle' %}
+
+{% block body %}
+    <div class="middle-container container">
+        <div class="container col-md-8 col-md-offset-8 col-lg-6 col-lg-offset-6">
+            {% if error %}
+                <div class="alert alert-warning text-center">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+        </div>
+        <div class="container col-md-6 col-md-offset-6 col-lg-4 col-lg-offset-4">
+            <h3 class="text-center">{{ 'app_user.log_in'|trans }}</h3>
+            <form class="form-horizontal" action="{{ path("app_user.login") }}" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input type="text" name="email" class="form-control" id="email" value="{{ last_username }}" placeholder="{{ 'app_user.email'|trans }}">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="password" class="form-control" id="password" placeholder="{{ 'app_user.password'|trans }}">
+                    </div>
+                    <div class="field">
+                        <label>
+                            <a href="{{ path('app_user.register') }}" class="pull-left">{{ 'app_user.register'|trans }}</a>
+                        </label>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" type="submit">{{ 'app_user.log_in'|trans }}</button>
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

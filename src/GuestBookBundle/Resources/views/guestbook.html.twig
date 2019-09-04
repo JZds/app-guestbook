@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+{% trans_default_domain 'GuestBookBundle' %}
+
+{% block body %}
+    {% set totalPageItems = pagination.items|length %}
+    {% set captions = 20 * (pagination.getCurrentPageNumber - 1) %}
+    {% set inputFieldSet = false %}
+    <div class="guestbook">
+        <h1 class="text-center">{{ 'app_guestbook.title'|trans }}</h1>
+        <div class="row">
+            <div class="col-lg-6">
+                <h2 class="sub-header">
+                    Guests {{ 20 * (pagination.getCurrentPageNumber - 1) + pagination.items|length }}/{{ pagination.getTotalItemCount }}
+                </h2>
+            </div>
+            <div class="col-lg-6">
+                <div class="d-flex justify-content-end">
+                    <b>{{ user.email }}</b>
+                    <a class="btn btn-secondary btn-sm" href="{{ path('app_user.logout') }}">{{ 'app_guestbook.logout'|trans }}</a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            {% for page in 1..2 %}
+                <div class="col-lg-6">
+                    <form class="form-horizontal" action="{{ path("app_guest_book.post_comment") }}" method="post">
+                        <table class="guestbook-table table table-striped table-hover table-sm col-lg">
+                            <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th class="col-md-1">{{ 'app_guestbook.comments'|trans }}</th>
+                                <th class="col-md-2">{{ 'app_guestbook.user'|trans }}</th>
+                                <th class="col-md-3">{{ 'app_guestbook.time'|trans }}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {% for comment in pagination %}
+                                    {% if page == 1 and loop.index0 < 10 or page == 2 and loop.index0 >= 10 %}
+                                        {% set captions = captions + 1 %}
+                                        <tr class="table-row">
+                                            <th scope="row">{{ captions }}</th>
+                                            <td><div class="scrollable">{{ comment.content }}</div></td>
+                                            <td class="td-username"><b>{{ comment.user.username }}</b></td>
+                                            <td class="td-time"><small>{{ comment.createdAt|ago }}</small></td>
+                                        </tr>
+                                    {% endif %}
+                                {% endfor %}
+
+                                {% if totalPageItems < 10  and page == 1 or totalPageItems < 20 and page == 2 %}
+                                    {% if page == 2 %}
+                                        {% set totalPageItems = totalPageItems - 10 %}
+                                    {% endif %}
+                                    {% for i in range(totalPageItems, 9) %}
+                                        {% set captions = captions + 1 %}
+                                        {% if loop.first and inputFieldSet == false %}
+                                            <tr class="table-row">
+                                                <th scope="row">{{ captions }}</th>
+                                                <td>
+                                                    <textarea id="commentInput" class="form-control" name="content" placeholder="{{ 'app_guestbook.comment_input'|trans }}"></textarea>
+                                                    <div id="commentButtonGroup">
+                                                        <button id="submitComment" class="btn btn-success" type="submit"><i class="fa fa-sm fa-check"></i></button>
+                                                        <a id="cancelComment" class="btn btn-danger"><i class="fa fa-sm fa-close"></i></a>
+                                                    </div>
+                                                </td>
+                                                <td class="td-username">{{ user.username }}</td>
+                                                <td></td>
+                                            </tr>
+                                            {% set inputFieldSet = true %}
+                                        {% else %}
+                                            <tr class="table-row">
+                                                <th scope="row">{{ captions }}</th>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                        {% endif %}
+                                        {% set totalPageItems = totalPageItems + 1 %}
+                                    {% endfor %}
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

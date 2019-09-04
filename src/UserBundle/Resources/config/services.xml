@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <imports>
+        <import resource="services/controllers.xml"/>
+        <import resource="services/repositories.xml"/>
+    </imports>
+
+    <services>
+        <service id="app_user.user_manager"
+                 class="App\UserBundle\Service\UserManager">
+            <argument type="service" id="doctrine.orm.default_entity_manager"/>
+            <argument type="service" id="event_dispatcher"/>
+            <argument type="service" id="validator"/>
+        </service>
+    </services>
+</container>

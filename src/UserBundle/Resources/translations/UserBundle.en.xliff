@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="" >
+        <body>
+            <trans-unit id="app_user.log_in">
+                <source>app_user.log_in</source>
+                <target>Log in</target>
+            </trans-unit>
+            <trans-unit id="app_user.email">
+                <source>app_user.email</source>
+                <target>Email</target>
+            </trans-unit>
+            <trans-unit id="app_user.username">
+                <source>app_user.username</source>
+                <target>Username</target>
+            </trans-unit>
+            <trans-unit id="app_user.password">
+                <source>app_user.password</source>
+                <target>Password</target>
+            </trans-unit>
+            <trans-unit id="app_user.confirm_password">
+                <source>app_user.confirm_password</source>
+                <target>Confirm password</target>
+            </trans-unit>
+            <trans-unit id="app_user.register">
+                <source>app_user.register</source>
+                <target>Register</target>
+            </trans-unit>
+            <trans-unit id="app_user.forgot_password">
+                <source>app_user.forgot_password</source>
+                <target>Forgot password</target>
+            </trans-unit>
+            <trans-unit id="app_user.send">
+                <source>app_user.send</source>
+                <target>Send</target>
+            </trans-unit>
+            <trans-unit id="app_user.user_register_success">
+                <source>app_user.user_register_success</source>
+                <target>User successfully created. You can log in</target>
+            </trans-unit>
+            <trans-unit id="app_user.check_credentials">
+                <source>app_user.check_credentials</source>
+                <target>Check your input credentials</target>
+            </trans-unit>
+            <trans-unit id="app_user.password_mismatch">
+                <source>app_user.password_mismatch</source>
+                <target>The password fields must match.</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

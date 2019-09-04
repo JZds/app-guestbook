@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+{% trans_default_domain 'UserBundle' %}
+
+{% block body %}
+    <div class="middle-container container">
+        <div class="container col-md-8 col-md-offset-8 col-lg-6 col-lg-offset-6">
+            {% for type, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ type }} text-center" role="alert">
+                        {{ message|trans }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+        <div class="container col-md-6 col-md-offset-6 col-lg-4 col-lg-offset-4">
+            <h3 class="text-center">{{ 'app_user.register'|trans }}</h3>
+            {{ form_start(registerForm, {'method': 'post', 'action': path('app_user.register')}) }}
+                <div class="modal-body">
+                    <div class="form-group">
+                        {{ form_row(registerForm.email, { 'attr': {'placeholder': 'app_user.email'|trans } }) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_row(registerForm.username, { 'attr': {'placeholder': 'app_user.username'|trans } }) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_row(registerForm.password.first, { 'attr': {'placeholder': 'app_user.password'|trans } }) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_row(registerForm.password.second, { 'attr': {'placeholder': 'app_user.confirm_password'|trans } }) }}
+                    </div>
+                    <div class="modal-footer">
+                        <a href="{{ path('app_user.login') }}" class="pull-left">{{ 'app_user.log_in'|trans }}</a>
+                        <button type="submit" class="btn btn-primary">{{ 'app_user.register'|trans }}</button>
+                        <input type="hidden" name="_token" value="">
+                    </div>
+                </div>
+            {{ form_end(registerForm) }}
+        </div>
+    </div>
+{% endblock %}

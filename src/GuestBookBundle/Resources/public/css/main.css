@@ -1,0 +1,57 @@
+html,body {
+    height:100%;
+    width:100%;
+    margin:0;
+}
+body {
+    display:flex;
+}
+
+.middle-container {
+    margin:auto;
+}
+
+table {
+    border-collapse: separate;
+    table-layout: auto;
+    width: 735px;
+    max-width: 735px;
+}
+
+.guestbook {
+    margin-right: auto;
+    margin-left:auto;
+    max-width: 1500px;
+}
+
+.scrollable {
+    overflow-y: auto;
+    max-height: 100px;
+}
+
+.table-row {
+    height: 125px;
+    max-height: 125px;
+    width: 685px;
+    max-width: 685px;
+}
+
+textarea {
+    resize: none;
+    height: 100px;
+    overflow-y: auto;
+}
+
+#commentField {
+    position: relative;
+}
+
+#commentButtonGroup {
+    position: absolute;
+}
+
+#cancelComment, #submitComment {
+    display: none;
+    position: relative;
+    float: left;
+}

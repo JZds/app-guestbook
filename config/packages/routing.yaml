@@ -1,0 +1,8 @@
+framework:
+    router:
+        strict_requirements: null
+
+jms_i18n_routing:
+    default_locale: en #"%env(APP_LOCALE)%"
+    locales: [en]
+    strategy: prefix
