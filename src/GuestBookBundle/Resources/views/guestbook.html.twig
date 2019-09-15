@@ -3,7 +3,8 @@
 
 {% block body %}
     {% set totalPageItems = pagination.items|length %}
-    {% set captions = 20 * (pagination.getCurrentPageNumber - 1) %}
+    {% set pageNumber = pagination.getCurrentPageNumber < 1 ? 1 : pagination.getCurrentPageNumber %}
+    {% set captions = 20 * (pageNumber - 1) %}
     {% set inputFieldSet = false %}
     {% set admin = is_granted('ROLE_ADMIN') %}
     <div class="guestbook">
@@ -22,7 +23,7 @@
         <div class="row">
             <div class="col-lg-6">
                 <h2 class="sub-header">
-                    {{ 'app_guest_book.guest_comments'|trans }} {{ 20 * (pagination.getCurrentPageNumber - 1) + pagination.items|length }}/{{ pagination.getTotalItemCount }}
+                    {{ 'app_guest_book.guest_comments'|trans }} {{ 20 * (pageNumber - 1) + pagination.items|length }}/{{ pagination.getTotalItemCount }}
                 </h2>
             </div>
             <div class="col-lg-6">
@@ -61,7 +62,7 @@
                                                     {% endif %}
                                                 {% else %}
                                                     {% if admin %}
-                                                        <a id="{{ comment.id }}" class="disaprove-comment btn btn-xs btn-outline-warning float-right" href="">{{ 'app_guest_book.button.disapprove'|trans }}</a>
+                                                        <a id="{{ comment.id }}" class="disapprove-comment btn btn-xs btn-outline-warning float-right" href="">{{ 'app_guest_book.button.disapprove'|trans }}</a>
                                                     {% endif %}
                                                 {% endif %}
                                                 <hr class="mt-1 mb-1">
