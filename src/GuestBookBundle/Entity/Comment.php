@@ -19,6 +19,11 @@ class Comment
     private $content;
 
     /**
+     * @var string
+     */
+    private $username;
+
+    /**
      * @var UserInterface
      */
     private $user;
@@ -27,6 +32,11 @@ class Comment
      * @var bool
      */
     private $approved;
+
+    /**
+     * @var DateTimeInterface|null
+     */
+    private $approvedAt;
 
     /**
      * @var bool
@@ -79,6 +89,25 @@ class Comment
     }
 
     /**
+     * @return string
+     */
+    public function getUsername(): string
+    {
+        return $this->username;
+    }
+
+    /**
+     * @param string $username
+     * @return $this
+     */
+    public function setUsername(string $username)
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    /**
      * @return UserInterface
      */
     public function getUser()
@@ -107,13 +136,42 @@ class Comment
     }
 
     /**
-     * @param bool $approved
-     *
      * @return $this
      */
-    public function setApproved(bool $approved)
+    public function disapprove()
     {
-        $this->approved = $approved;
+        $this->approved = false;
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function approve()
+    {
+        $this->approved = true;
+        if ($this->approvedAt === null) {
+            $this->setApprovedAt(new DateTimeImmutable());
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return DateTimeInterface|null
+     */
+    public function getApprovedAt()
+    {
+        return $this->approvedAt;
+    }
+
+    /**
+     * @param DateTimeInterface|null $approvedAt
+     * @return $this
+     */
+    public function setApprovedAt(DateTimeInterface $approvedAt)
+    {
+        $this->approvedAt = $approvedAt;
 
         return $this;
     }
@@ -139,21 +197,14 @@ class Comment
     }
 
     /**
-     * @return DateTimeInterface
-     */
-    public function getCreatedAt(): DateTimeInterface
-    {
-        return $this->createdAt;
-    }
-
-    /**
-     * @param DateTimeInterface $createdAt
-     *
      * @return $this
      */
-    public function setCreatedAt(DateTimeInterface $createdAt)
+    public function delete()
     {
-        $this->createdAt = $createdAt;
+        $this->deleted = true;
+        if ($this->deletedAt === null) {
+            $this->setDeletedAt(new DateTimeImmutable());
+        }
 
         return $this;
     }
@@ -174,6 +225,26 @@ class Comment
     public function setDeletedAt(DateTimeInterface $deletedAt)
     {
         $this->deletedAt = $deletedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return DateTimeInterface
+     */
+    public function getCreatedAt(): DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param DateTimeInterface $createdAt
+     *
+     * @return $this
+     */
+    public function setCreatedAt(DateTimeInterface $createdAt)
+    {
+        $this->createdAt = $createdAt;
 
         return $this;
     }

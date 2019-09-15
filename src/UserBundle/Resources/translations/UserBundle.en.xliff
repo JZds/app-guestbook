@@ -36,7 +36,7 @@
             </trans-unit>
             <trans-unit id="app_user.user_register_success">
                 <source>app_user.user_register_success</source>
-                <target>User successfully created. You can log in</target>
+                <target>User successfully created. You can log in now</target>
             </trans-unit>
             <trans-unit id="app_user.check_credentials">
                 <source>app_user.check_credentials</source>
@@ -44,7 +44,44 @@
             </trans-unit>
             <trans-unit id="app_user.password_mismatch">
                 <source>app_user.password_mismatch</source>
-                <target>The password fields must match.</target>
+                <target>The password fields must match</target>
+            </trans-unit>
+
+            <trans-unit id="app_user.username_blank">
+                <source>app_user.username_blank</source>
+                <target>Username must not be blank</target>
+            </trans-unit>
+            <trans-unit id="app_user.username_too_short">
+                <source>app_user.username_too_short</source>
+                <target>Username is too short</target>
+            </trans-unit>
+            <trans-unit id="app_user.username_too_long">
+                <source>app_user.username_too_long</source>
+                <target>Username is too long</target>
+            </trans-unit>
+            <trans-unit id="app_user.password_blank">
+                <source>app_user.password_blank</source>
+                <target>Password must not be blank</target>
+            </trans-unit>
+            <trans-unit id="app_user.password_too_short">
+                <source>app_user.password_too_short</source>
+                <target>Password is too short</target>
+            </trans-unit>
+            <trans-unit id="app_user.password_too_long">
+                <source>app_user.password_too_long</source>
+                <target>Password is too long</target>
+            </trans-unit>
+            <trans-unit id="app_user.email_used">
+                <source>app_user.email_used</source>
+                <target>Email is already used</target>
+            </trans-unit>
+            <trans-unit id="app_user.email_blank">
+                <source>app_user.email_blank</source>
+                <target>Email must not be blank</target>
+            </trans-unit>
+            <trans-unit id="app_user.email_invalid">
+                <source>app_user.email_invalid</source>
+                <target>Email is invalid</target>
             </trans-unit>
         </body>
     </file>

@@ -6,13 +6,11 @@
         "php": "^7.1",
         "ext-ctype": "*",
         "ext-iconv": "*",
-        "friendsofsymfony/user-bundle": "^2.0",
-        "jms/i18n-routing-bundle": "^2.0",
+        "friendsofsymfony/jsrouting-bundle": "^2.4",
         "knplabs/knp-paginator-bundle": "^4.0",
         "knplabs/knp-time-bundle": "^1.9",
         "sensio/framework-extra-bundle": "^5.1",
         "symfony/asset": "*",
-        "symfony/assetic-bundle": "^2.8",
         "symfony/console": "*",
         "symfony/dotenv": "*",
         "symfony/expression-language": "*",
@@ -29,6 +27,7 @@
         "symfony/twig-bundle": "*",
         "symfony/validator": "*",
         "symfony/web-link": "*",
+        "symfony/webpack-encore-bundle": "^1.6",
         "symfony/yaml": "*"
     },
     "require-dev": {
@@ -68,7 +67,8 @@
     "scripts": {
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
-            "assets:install %PUBLIC_DIR%": "symfony-cmd"
+            "assets:install %PUBLIC_DIR%": "symfony-cmd",
+            "fos:js-routing:dump --format=json --target=%PUBLIC_DIR%/js/fos_js_routes.json": "symfony-cmd"
         },
         "post-install-cmd": [
             "@auto-scripts"

@@ -2,17 +2,17 @@
 {% trans_default_domain 'UserBundle' %}
 
 {% block body %}
-    <div class="middle-container container">
-        <div class="container col-md-8 col-md-offset-8 col-lg-6 col-lg-offset-6">
-            {% for type, messages in app.flashes %}
-                {% for message in messages %}
-                    <div class="alert alert-{{ type }} text-center" role="alert">
-                        {{ message|trans }}
-                    </div>
+    <div class="form-container container col-lg-4">
+        <div class="container middle-container">
+            <div class="container">
+                {% for type, messages in app.flashes %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ type }} text-center" role="alert">
+                            {{ message|trans }}
+                        </div>
+                    {% endfor %}
                 {% endfor %}
-            {% endfor %}
-        </div>
-        <div class="container col-md-6 col-md-offset-6 col-lg-4 col-lg-offset-4">
+            </div>
             <h3 class="text-center">{{ 'app_user.register'|trans }}</h3>
             {{ form_start(registerForm, {'method': 'post', 'action': path('app_user.register')}) }}
                 <div class="modal-body">

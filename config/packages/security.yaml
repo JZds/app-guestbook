@@ -3,30 +3,35 @@ security:
         App\UserBundle\Entity\User:
             algorithm: bcrypt
     providers:
-        app_user_provider:
+        users:
             entity:
                 class: App\UserBundle\Entity\User
                 property: email
 
     role_hierarchy:
-        ROLE_ADMIN:       ROLE_USER
-        ROLE_SUPER_ADMIN: ROLE_ADMIN
+        ROLE_USER: ROLE_USER
+        ROLE_ADMIN: ROLE_ADMIN
 
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        main:
+        user:
             pattern: ^/
+            anonymous: ~
+            logout_on_user_change: true
             logout:
                 path: app_user.logout
-            anonymous: true
             guard:
+                provider: users
                 authenticators:
                     - App\UserBundle\Security\LoginFormAuthenticator
-
+        main:
+            pattern: ^/user
+            logout_on_user_change: true
+            anonymous: true
     access_control:
-        - { path: ^/user/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/user/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/user/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/user/admin/, role: ROLE_ADMIN }
+        - { path: '^/user/login$', role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: '^/user/register$', role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: '^/', role: ROLE_USER }
+        - { path: '^/comment/\d+$/', role: ROLE_ADMIN }

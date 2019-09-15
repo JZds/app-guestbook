@@ -31,7 +31,7 @@ class UserManager
             ->setEmail($userData['email'])
             ->setPassword(password_hash($userData['password'], PASSWORD_BCRYPT))
             ->setEnabled(true)
-            ->setRoles([User::ROLE_USER])
+            ->addRole(User::ROLE_USER)
         ;
         $violations = $this->validator->validate($user);
         if ($violations->count() > 0) {
@@ -40,7 +40,7 @@ class UserManager
             foreach ($violations as $violation) {
                 $errors[] = $violation->getMessage();
             }
-            throw new ValidationException('invalid_validation', $errors, 400);
+            throw new ValidationException('validation_errors', $errors, 400);
         }
         $this->entityManager->persist($user);
 

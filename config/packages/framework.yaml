@@ -10,9 +10,7 @@ framework:
     translator:
         fallbacks: ['en']
     trusted_hosts: ~
-    trusted_proxies: ~
     fragments: ~
-    translator: ~
 
     php_errors:
         log: true

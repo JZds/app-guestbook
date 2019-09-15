@@ -5,10 +5,9 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="app_guest_book.controller.guest_book_controller" public="true"
-                 class="App\GuestBookBundle\Controller\GuestBookController">
-            <argument type="service" id="app_guest_book.comment_manager"/>
-            <argument type="service" id="app_guest_book.repository.comment_repository"/>
+        <service id="app_user.command.create_admin_command"
+                 class="App\UserBundle\Command\CreateAdminCommand">
+            <argument type="service" id="app_user.repository.user_repository"/>
             <argument type="service" id="doctrine.orm.default_entity_manager"/>
         </service>
     </services>

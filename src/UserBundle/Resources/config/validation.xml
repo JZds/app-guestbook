@@ -7,44 +7,38 @@
     <class name="App\UserBundle\Entity\User">
         <property name="username">
             <constraint name="NotBlank">
-                <option name="message">Username must not be blank</option>
+                <option name="message">app_user.username_blank</option>
             </constraint>
             <constraint name="Length">
                 <option name="min">2</option>
-                <option name="max">50</option>
-                <option name="minMessage">
-                    Your username must be at least {{ limit }} characters long
-                </option>
-                <option name="maxMessage">
-                    Your username cannot be longer than {{ limit }} characters
-                </option>
+                <option name="max">255</option>
+                <option name="minMessage">app_user.username_too_short</option>
+                <option name="maxMessage">app_user.username_too_long</option>
             </constraint>
         </property>
 
         <property name="password">
             <constraint name="NotBlank">
-                <option name="message">Password must not be blank</option>
+                <option name="message">app_user.password_blank</option>
             </constraint>
             <constraint name="Length">
                 <option name="min">2</option>
                 <option name="max">4096</option>
-                <option name="minMessage">password too short</option>
-                <option name="maxMessage">
-                    Your password cannot be longer than {{ limit }} characters
-                </option>
+                <option name="minMessage">app_user.password_too_short</option>
+                <option name="maxMessage">app_user.password_too_long</option>
             </constraint>
         </property>
 
         <constraint name="Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity">
             <option name="fields">email</option>
-            <option name="message">Email already used</option>
+            <option name="message">app_user.email_used</option>
         </constraint>
         <property name="email">
             <constraint name="NotBlank">
-                <option name="message">Email must not be blank</option>
+                <option name="message">app_user.email_blank</option>
             </constraint>
             <constraint name="Email">
-                <option name="message">The email "{{ value }}" is not a valid email.</option>
+                <option name="message">app_user.email_invalid</option>
             </constraint>
         </property>
     </class>

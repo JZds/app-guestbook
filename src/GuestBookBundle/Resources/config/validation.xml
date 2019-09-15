@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping
+        https://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
+
+    <class name="App\GuestBookBundle\Entity\Comment">
+        <property name="username">
+            <constraint name="NotBlank">
+                <option name="message">app_guest_book.validation.username_not_blank</option>
+            </constraint>
+            <constraint name="Length">
+                <option name="min">1</option>
+                <option name="max">255</option>
+                <option name="minMessage">app_guest_book.validation.username_too_short</option>
+                <option name="maxMessage">app_guest_book.validation.username_too_long</option>
+            </constraint>
+        </property>
+
+        <property name="content">
+            <constraint name="NotBlank">
+                <option name="message">app_guest_book.validation.comment_content_not_blank</option>
+            </constraint>
+            <constraint name="Length">
+                <option name="min">2</option>
+                <option name="max">4294967295</option>
+                <option name="minMessage">app_guest_book.validation.comment_content_too_short</option>
+                <option name="maxMessage">app_guest_book.validation.comment_content_too_long</option>
+            </constraint>
+        </property>
+    </class>
+</constraint-mapping>

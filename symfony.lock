@@ -111,17 +111,20 @@
     "fig/link-util": {
         "version": "1.0.0"
     },
-    "friendsofsymfony/user-bundle": {
-        "version": "v2.1.2"
+    "friendsofsymfony/jsrouting-bundle": {
+        "version": "2.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "2.3",
+            "ref": "a9f2e49180f75cdc71ae279a929c4b2e0638de84"
+        },
+        "files": [
+            "./config/routes/fos_js_routing.yaml"
+        ]
     },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
-    },
-    "jms/i18n-routing-bundle": {
-        "version": "2.0.4"
-    },
-    "jms/translation-bundle": {
-        "version": "1.4.4"
     },
     "knplabs/knp-components": {
         "version": "v1.3.10"
@@ -131,9 +134,6 @@
     },
     "knplabs/knp-time-bundle": {
         "version": "v1.9.1"
-    },
-    "kriswallsmith/assetic": {
-        "version": "v1.4.0"
     },
     "monolog/monolog": {
         "version": "1.24.0"
@@ -188,9 +188,6 @@
     },
     "symfony/asset": {
         "version": "v3.4.30"
-    },
-    "symfony/assetic-bundle": {
-        "version": "v2.8.2"
     },
     "symfony/browser-kit": {
         "version": "v3.4.30"
@@ -416,6 +413,9 @@
     "symfony/serializer-pack": {
         "version": "v1.0.2"
     },
+    "symfony/service-contracts": {
+        "version": "v1.1.6"
+    },
     "symfony/stopwatch": {
         "version": "v3.4.30"
     },
@@ -501,6 +501,24 @@
             "ref": "dae9b39fd6717970be7601101ce5aa960bf53d9a"
         }
     },
+    "symfony/webpack-encore-bundle": {
+        "version": "1.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "1.0",
+            "ref": "d3b160b9799c91cbfc3df6f018c795f3bf88698a"
+        },
+        "files": [
+            "./assets/css/app.css",
+            "./assets/js/app.js",
+            "./config/packages/assets.yaml",
+            "./config/packages/prod/webpack_encore.yaml",
+            "./config/packages/webpack_encore.yaml",
+            "./package.json",
+            "./webpack.config.js"
+        ]
+    },
     "symfony/yaml": {
         "version": "v3.4.30"
     },
@@ -509,6 +527,9 @@
     },
     "webmozart/assert": {
         "version": "1.4.0"
+    },
+    "willdurand/jsonp-callback-validator": {
+        "version": "v1.1.0"
     },
     "zendframework/zend-code": {
         "version": "3.3.1"

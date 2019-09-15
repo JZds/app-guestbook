@@ -4,7 +4,6 @@ namespace App\GuestBookBundle\Service;
 
 use App\GuestBookBundle\Entity\Comment;
 use App\GuestBookBundle\Repository\CommentRepository;
-use App\UserBundle\Entity\User;
 use App\UserBundle\Exception\ValidationException;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -34,10 +33,10 @@ class CommentManager
     /**
      * @param int $page
      * @param int $limit
-     * @param User|null $user
+     * @param UserInterface|null $user
      * @return PaginationInterface
      */
-    public function getPaginatedComments(int $page, int $limit, User $user = null)
+    public function getPaginatedComments(int $page, int $limit, UserInterface $user = null)
     {
         return $this->paginator->paginate($this->commentRepository->getQueryForCommentsByUser($user), $page, $limit);
     }
@@ -46,6 +45,7 @@ class CommentManager
     {
         $comment = (new Comment())
             ->setContent($commentData['content'])
+            ->setUsername($commentData['username'] ?: $user->getUsername())
             ->setUser($user)
         ;
         $violations = $this->validator->validate($comment);

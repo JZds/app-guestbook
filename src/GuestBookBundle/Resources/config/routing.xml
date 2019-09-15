@@ -10,4 +10,13 @@
     <route id="app_guest_book.post_comment" methods="POST" path="/comment">
         <default key="_controller">app_guest_book.controller.guest_book_controller:postComment</default>
     </route>
+    <route id="app_guest_book.approve_comment" methods="PUT" path="/comment/{commentId}/approve">
+        <default key="_controller">app_guest_book.controller.guest_book_controller:approveComment</default>
+    </route>
+    <route id="app_guest_book.disapprove_comment" methods="PUT" path="/comment/{commentId}/disapprove">
+        <default key="_controller">app_guest_book.controller.guest_book_controller:disapproveComment</default>
+    </route>
+    <route id="app_guest_book.delete_comment" methods="PUT" path="/comment/{commentId}/delete">
+        <default key="_controller">app_guest_book.controller.guest_book_controller:deleteComment</default>
+    </route>
 </routes>

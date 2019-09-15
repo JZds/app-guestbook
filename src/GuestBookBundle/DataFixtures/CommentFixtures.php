@@ -14,17 +14,21 @@ class CommentFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager)
     {
         $users = $manager->getRepository(User::class)->findAll();
-        foreach ($users as $user) {
-            $manager->persist((new Comment())
+        for ($i = 0; $i < 25; $i++) {
+            $user = $users[array_rand($users)];
+            $comment = (new Comment())
+                ->setUsername($user->getUsername())
                 ->setUser($user)
-                ->setApproved($user->getId() % 2 == 0)
                 ->setContent(
                     'Lorem ipsum dolor sit amet, consectetur adipiscing elit,' .
                     ' sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
                 )
-            );
+            ;
+            if ($user->getId() % 2 == 0) {
+                $comment->approve();
+            }
+            $manager->persist($comment);
         }
-
         $manager->flush();
     }
 

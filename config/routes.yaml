@@ -5,3 +5,5 @@ app_user:
 app_guest_book:
     resource: "@GuestBookBundle/Resources/config/routing.xml"
     prefix: /
+    options:
+        expose: true

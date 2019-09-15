@@ -54,6 +54,7 @@ class User implements UserInterface
     public function __construct()
     {
         $this->createdAt = new DateTimeImmutable();
+        $this->roles = [];
     }
 
     /**
@@ -196,7 +197,23 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getRoles(): array
+    /**
+     * @param string $role
+     * @return $this
+     */
+    public function addRole(string $role)
+    {
+        if (!in_array($role, $this->roles, true)) {
+            $this->roles[] = $role;
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getRoles()
     {
         return $this->roles;
     }
@@ -208,6 +225,5 @@ class User implements UserInterface
 
     public function eraseCredentials()
     {
-        // TODO: Implement eraseCredentials() method.
     }
 }

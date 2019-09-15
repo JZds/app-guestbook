@@ -1,0 +1,64 @@
+body, Html {
+    height: 100%
+}
+
+.form-container {
+    display: table;
+    height: 100%;
+    margin: 0 auto
+}
+
+.middle-container {
+    display: table-cell;
+    vertical-align: middle
+}
+
+.guestbook-table {
+    border-collapse: separate;
+    table-layout: auto;
+    max-width: 735px;
+    border-bottom: 1pt solid #DEE2E6;
+}
+
+.guestbook {
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 1500px;
+}
+
+.scrollable {
+    overflow-y: auto;
+    max-height: 80px;
+    text-overflow:ellipsis;
+    word-break: break-all;
+}
+
+.table-row {
+    height: 125px;
+    max-width: 685px;
+}
+
+#emptyContent {
+    height: 24px;
+}
+
+#commentField {
+    position: relative
+}
+
+#commentButtonGroup {
+    position: absolute
+}
+
+#cancelComment, #submitComment {
+    display: none;
+    position: relative;
+    float: left
+}
+
+.btn-group-xs > .btn, .btn-xs {
+    padding: .25rem .4rem;
+    font-size: .875rem;
+    line-height: .5;
+    border-radius: .2rem;
+}

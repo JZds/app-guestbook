@@ -16,7 +16,7 @@ class UserFixtures extends Fixture
                 ->setEmail($i . 'mail@mail.com')
                 ->setPassword(password_hash('asd', PASSWORD_BCRYPT))
                 ->setEnabled(true)
-                ->setRoles([User::ROLE_USER])
+                ->addRole(User::ROLE_USER)
             );
         }
 

@@ -43,7 +43,7 @@ class ValidationException extends \Exception
     }
 
     /**
-     * @return integer
+     * @return int
      */
     public function getStatusCode()
     {

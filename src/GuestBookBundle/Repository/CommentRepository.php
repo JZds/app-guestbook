@@ -5,8 +5,10 @@ namespace App\GuestBookBundle\Repository;
 use App\GuestBookBundle\Entity\Comment;
 use App\UserBundle\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class CommentRepository extends ServiceEntityRepository
 {
@@ -15,30 +17,51 @@ class CommentRepository extends ServiceEntityRepository
         parent::__construct($registry, Comment::class);
     }
 
-    public function getQueryForCommentsByUser(User $user = null)
+    public function getTotalCommentsByUser(UserInterface $user = null): int
     {
-        $queryBuilder = $this->createQueryBuilder('comment');
-
-//        $this->updateCommentsQueryByUser($queryBuilder);
-
-        return $queryBuilder
-//            ->andWhere('comment.approved = true')
-//            ->andWhere('comment.deleted = false')
-            ->orderBy('comment.createdAt', 'ASC')
+        return $this->createQueryBuilderForCommentsByUser('comment', $user)
+            ->select('COUNT(comment)')
             ->getQuery()
+            ->getSingleScalarResult()
         ;
     }
 
-    private function updateCommentsQueryByUser(QueryBuilder $queryBuilder, User $user = null)
+    public function getQueryForCommentsByUser(UserInterface $user = null): Query
     {
-        // xor other users
-        if ($user !== null) {
+        $query = $this->createQueryBuilderForCommentsByUser('comment', $user)
+            ->addSelect('CASE WHEN comment.approvedAt IS NULL THEN 0 ELSE 1 END AS HIDDEN approvedOrder')
+            ->addOrderBy('approvedOrder', 'DESC')
+            ->addOrderBy('comment.approvedAt', 'ASC')
+            ->getQuery()
+        ;
+        return $query;
+    }
+
+    private function createQueryBuilderForCommentsByUser(string $alias, UserInterface $user = null): QueryBuilder
+    {
+        $queryBuilder = $this->createQueryBuilder($alias);
+        $this->updateCommentsQueryByUser($alias, $queryBuilder, $user);
+        $queryBuilder->andWhere($alias . '.deleted = false');
+        return $queryBuilder;
+    }
+
+    private function updateCommentsQueryByUser(
+        string $alias,
+        QueryBuilder $queryBuilder,
+        UserInterface $user = null
+    ): QueryBuilder {
+        if ($user !== null && !in_array(User::ROLE_ADMIN, $user->getRoles())) {
+            $approvedComments = $queryBuilder->expr()->andX(
+                $alias . '.approved = true'
+            );
+            $userUnapprovedComments = $queryBuilder->expr()->andX(
+                $alias . '.approved = false',
+                $alias . '.user = :user'
+            );
             $queryBuilder
-                ->orWhere('comment.user = :user')
+                ->andWhere($queryBuilder->expr()->orX($approvedComments, $userUnapprovedComments))
                 ->setParameter('user', $user)
             ;
-        } else {
-            $queryBuilder->andWhere('comment.approved = true');
         }
         return $queryBuilder;
     }

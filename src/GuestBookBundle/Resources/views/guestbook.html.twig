@@ -5,18 +5,30 @@
     {% set totalPageItems = pagination.items|length %}
     {% set captions = 20 * (pagination.getCurrentPageNumber - 1) %}
     {% set inputFieldSet = false %}
+    {% set admin = is_granted('ROLE_ADMIN') %}
     <div class="guestbook">
-        <h1 class="text-center">{{ 'app_guestbook.title'|trans }}</h1>
+        <h1 class="text-center">{{ 'app_guest_book.title'|trans }}</h1>
+        <div class="container">
+            <div class="container">
+                {% for type, messages in app.flashes %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ type }} text-center" role="alert">
+                            {{ message|trans }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        </div>
         <div class="row">
             <div class="col-lg-6">
                 <h2 class="sub-header">
-                    Guests {{ 20 * (pagination.getCurrentPageNumber - 1) + pagination.items|length }}/{{ pagination.getTotalItemCount }}
+                    {{ 'app_guest_book.guest_comments'|trans }} {{ 20 * (pagination.getCurrentPageNumber - 1) + pagination.items|length }}/{{ pagination.getTotalItemCount }}
                 </h2>
             </div>
             <div class="col-lg-6">
                 <div class="d-flex justify-content-end">
-                    <b>{{ user.email }}</b>
-                    <a class="btn btn-secondary btn-sm" href="{{ path('app_user.logout') }}">{{ 'app_guestbook.logout'|trans }}</a>
+                    <b>{{ user.email }}</b>{% if admin %}<i class="text-danger">(admin)</i>{% endif %}
+                    <a class="btn btn-secondary btn-sm" href="{{ path('app_user.logout') }}">{{ 'app_guest_book.logout'|trans }}</a>
                 </div>
             </div>
         </div>
@@ -24,24 +36,39 @@
             {% for page in 1..2 %}
                 <div class="col-lg-6">
                     <form class="form-horizontal" action="{{ path("app_guest_book.post_comment") }}" method="post">
-                        <table class="guestbook-table table table-striped table-hover table-sm col-lg">
+                        <table class="guestbook-table table table-striped table-hover table-sm">
                             <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th class="col-md-1">{{ 'app_guestbook.comments'|trans }}</th>
-                                <th class="col-md-2">{{ 'app_guestbook.user'|trans }}</th>
-                                <th class="col-md-3">{{ 'app_guestbook.time'|trans }}</th>
+                                <th class="col-md-1">{{ 'app_guest_book.comments'|trans }}</th>
                             </tr>
                             </thead>
                             <tbody>
                                 {% for comment in pagination %}
                                     {% if page == 1 and loop.index0 < 10 or page == 2 and loop.index0 >= 10 %}
                                         {% set captions = captions + 1 %}
-                                        <tr class="table-row">
+                                        <tr class="table-row {% if comment.approved == false %} text-secondary {% endif %}">
                                             <th scope="row">{{ captions }}</th>
-                                            <td><div class="scrollable">{{ comment.content }}</div></td>
-                                            <td class="td-username"><b>{{ comment.user.username }}</b></td>
-                                            <td class="td-time"><small>{{ comment.createdAt|ago }}</small></td>
+                                            <td>
+                                                <b>{{ comment.username }}</b> | <small>{{ comment.approvedAt|ago }}</small>
+                                                {% if admin %}
+                                                    <a id="{{ comment.id }}" class="delete-comment btn btn-xs btn-outline-danger float-right" href="">{{ 'app_guest_book.button.delete'|trans }}</a>
+                                                {% endif %}
+                                                {% if comment.approved == false %}
+                                                    <i class="text-warning">({{ 'app_guest_book.unapproved'|trans }})</i>
+                                                    {% if admin %}
+                                                        <a id="{{ comment.id }}" class="approve-comment btn btn-xs btn-outline-success float-right" href="">{{ 'app_guest_book.button.approve'|trans }}</a>
+                                                    {% endif %}
+                                                {% else %}
+                                                    {% if admin %}
+                                                        <a id="{{ comment.id }}" class="disaprove-comment btn btn-xs btn-outline-warning float-right" href="">{{ 'app_guest_book.button.disapprove'|trans }}</a>
+                                                    {% endif %}
+                                                {% endif %}
+                                                <hr class="mt-1 mb-1">
+                                                <div class="scrollable">
+                                                    <p>{{ comment.content|nl2br }}</p>
+                                                </div>
+                                            </td>
                                         </tr>
                                     {% endif %}
                                 {% endfor %}
@@ -56,22 +83,23 @@
                                             <tr class="table-row">
                                                 <th scope="row">{{ captions }}</th>
                                                 <td>
-                                                    <textarea id="commentInput" class="form-control" name="content" placeholder="{{ 'app_guestbook.comment_input'|trans }}"></textarea>
+                                                    <input class="form-control form-control-sm" name="username" type="text" placeholder="{{ user.username }}">
+                                                    <hr class="mt-1 mb-1">
+                                                    <textarea rows="3" id="commentInput" class="form-control form-control-sm" name="content" placeholder="{{ 'app_guest_book.comment_input'|trans }}"></textarea>
                                                     <div id="commentButtonGroup">
-                                                        <button id="submitComment" class="btn btn-success" type="submit"><i class="fa fa-sm fa-check"></i></button>
-                                                        <a id="cancelComment" class="btn btn-danger"><i class="fa fa-sm fa-close"></i></a>
+                                                        <button id="submitComment" class="btn btn-success" type="submit"><span class="fa fa-sm fa-check"></span></button>
+                                                        <button id="cancelComment" class="btn btn-danger" type="button"><span class="fa fa-times"></span></button>
                                                     </div>
                                                 </td>
-                                                <td class="td-username">{{ user.username }}</td>
-                                                <td></td>
                                             </tr>
                                             {% set inputFieldSet = true %}
                                         {% else %}
                                             <tr class="table-row">
                                                 <th scope="row">{{ captions }}</th>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
+                                                <td>
+                                                    <div id="emptyContent"></div>
+                                                    <hr class="mt-1 mb-1">
+                                                </td>
                                             </tr>
                                         {% endif %}
                                         {% set totalPageItems = totalPageItems + 1 %}
@@ -82,6 +110,9 @@
                     </form>
                 </div>
             {% endfor %}
+        </div>
+        <div class="d-flex justify-content-center">
+            {{ knp_pagination_render(pagination) }}
         </div>
     </div>
 {% endblock %}

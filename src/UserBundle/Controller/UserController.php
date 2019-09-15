@@ -29,10 +29,6 @@ class UserController extends AbstractController
 
     public function login(): Response
     {
-        if ($this->getUser()) {
-            return $this->redirectToRoute('app_guest_book.render.guest_book');
-        }
-
         $authenticationUtils = $this->get('security.authentication_utils');
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
@@ -47,10 +43,6 @@ class UserController extends AbstractController
 
     public function register(Request $request): Response
     {
-        if ($this->getUser()) {
-            return $this->redirectToRoute('app_guest_book.render.guest_book');
-        }
-
         $form = $this->createForm(RegisterFormType::class);
         $form->handleRequest($request);
         if ($form->isSubmitted()) {

@@ -2,29 +2,76 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
     <file source-language="en" datatype="plaintext" original="" >
         <body>
-            <trans-unit id="app_guestbook.title">
-                <source>app_guestbook.title</source>
+            <trans-unit id="app_guest_book.title">
+                <source>app_guest_book.title</source>
                 <target>Guest book</target>
             </trans-unit>
-            <trans-unit id="app_guestbook.logout">
-                <source>app_guestbook.logout</source>
+            <trans-unit id="app_guest_book.guest_comments">
+                <source>app_guest_book.guest_comments</source>
+                <target>Guest comments</target>
+            </trans-unit>
+            <trans-unit id="app_guest_book.unapproved">
+                <source>app_guest_book.unapproved</source>
+                <target>Unapproved</target>
+            </trans-unit>
+            <trans-unit id="app_guest_book.logout">
+                <source>app_guest_book.logout</source>
                 <target>Log out</target>
             </trans-unit>
-            <trans-unit id="app_guestbook.comments">
-                <source>app_guestbook.comments</source>
+            <trans-unit id="app_guest_book.comments">
+                <source>app_guest_book.comments</source>
                 <target>Comments</target>
             </trans-unit>
-            <trans-unit id="app_guestbook.user">
-                <source>app_guestbook.user</source>
+            <trans-unit id="app_guest_book.user">
+                <source>app_guest_book.user</source>
                 <target>User</target>
             </trans-unit>
-            <trans-unit id="app_guestbook.time">
-                <source>app_guestbook.time</source>
+            <trans-unit id="app_guest_book.time">
+                <source>app_guest_book.time</source>
                 <target>Time</target>
             </trans-unit>
-            <trans-unit id="app_guestbook.comment_input">
-                <source>app_guestbook.comment_input</source>
+            <trans-unit id="app_guest_book.comment_input">
+                <source>app_guest_book.comment_input</source>
                 <target>Write new comment</target>
+            </trans-unit>
+
+            <trans-unit id="app_guest_book.button.approve">
+                <source>app_guest_book.button.approve</source>
+                <target>approve</target>
+            </trans-unit>
+            <trans-unit id="app_guest_book.button.disapprove">
+                <source>app_guest_book.button.disapprove</source>
+                <target>disapprove</target>
+            </trans-unit>
+            <trans-unit id="app_guest_book.button.delete">
+                <source>app_guest_book.button.delete</source>
+                <target>delete</target>
+            </trans-unit>
+
+            <trans-unit id="app_guest_book.validation.username_not_blank">
+                <source>app_guest_book.validation.username_not_blank</source>
+                <target>Username must not be blank</target>
+            </trans-unit>
+            <trans-unit id="app_guest_book.validation.username_too_short">
+                <source>app_guest_book.validation.username_too_short</source>
+                <target>Username is too short</target>
+            </trans-unit>
+            <trans-unit id="app_guest_book.validation.username_too_long">
+                <source>app_guest_book.validation.username_too_long</source>
+                <target>Username is too long</target>
+            </trans-unit>
+
+            <trans-unit id="app_guest_book.validation.comment_content_not_blank">
+                <source>app_guest_book.validation.comment_content_not_blank</source>
+                <target>Comment content must not be blank</target>
+            </trans-unit>
+            <trans-unit id="app_guest_book.validation.comment_content_too_short">
+                <source>app_guest_book.validation.comment_content_too_short</source>
+                <target>Comment content is too short</target>
+            </trans-unit>
+            <trans-unit id="app_guest_book.validation.comment_content_too_long">
+                <source>app_guest_book.validation.comment_content_too_long</source>
+                <target>Comment content is too long</target>
             </trans-unit>
         </body>
     </file>
